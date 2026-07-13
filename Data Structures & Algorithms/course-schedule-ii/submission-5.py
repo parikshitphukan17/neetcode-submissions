@@ -1,0 +1,29 @@
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+
+        adj = {i:[] for i in range(numCourses)}
+        for crs,pre in prerequisites:
+            adj[crs].append(pre)
+        vis = {}
+        res = []
+        def dfs(crs):
+            if crs in vis:
+                return vis[crs]
+            vis[crs] = False
+            for pre in adj[crs]:
+                if not dfs(pre):
+                    return False
+            vis[crs] = True
+            res.append(crs)
+            return True
+        for crs in range(numCourses):
+            if not dfs(crs):
+                return []
+        return res
+
+
+
+
+
+
+        

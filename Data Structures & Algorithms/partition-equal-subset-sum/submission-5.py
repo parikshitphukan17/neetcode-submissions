@@ -1,0 +1,37 @@
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        s = sum(nums)
+        if s%2:
+            return False
+        req = s//2
+        N = len(nums)
+        dp = [[False]*(req+1) for _ in range(N+1)]
+        for i in range(N):
+            dp[i][req] = True
+        for i in range(N-1,-1,-1):
+            for j in range(req-1,-1,-1):
+                if dp[i][j]:
+                    continue
+                dp[i][j] = dp[i+1][j] or (dp[i+1][j+nums[i]] if j+nums[i]<= req else False)
+        return dp[0][0]
+
+        # def dfs(i,s):
+        #     if s>req or i== N:
+        #         return False
+        #     if (i,s) in dp:
+        #         return dp[(i,s)]
+        #     if s == req:
+        #         return True
+        #     dp[(i,s)] = dfs(i+1,s+nums[i]) or dfs(i+1,s)
+        #     return dp[(i,s)]
+        # return dfs(0,0)
+            
+
+
+
+
+        
+
+
+
+        
